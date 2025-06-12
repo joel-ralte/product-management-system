@@ -14,8 +14,8 @@ It demonstrates clean architecture principles, separation of concerns, and code-
 ### 1. Clone the Repository
 
 ```bash
-git clone <repository-url>
-cd <repository-folder>
+git clone https://github.com/joel-lalrinnunga_zeiss/ProductManagementSystem.git
+cd ProductManagementSystem
 ```
 
 ### 2. Database Setup

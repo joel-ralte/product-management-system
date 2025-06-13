@@ -11,6 +11,6 @@
 
         public const int MinStock = 1;
 
-        public const int MaxStock = 5000;
+        public const int MaxStock = 50000;
     }
 }

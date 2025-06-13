@@ -260,6 +260,24 @@ namespace PMS.Business.Tests.ServicesTests
         }
 
         [Fact]
+        public async Task AddToStock_Throws_WhenStockExceedsLimit()
+        {
+            var product = new Product
+            {
+                Id = 1,
+                Name = "A",
+                Description = "D",
+                Price = 1,
+                Stock = PMS.Common.Configurations.RangeValues.MaxStock,
+                CreationDate = DateTime.UtcNow,
+                LastUpdated = DateTime.UtcNow
+            };
+            _productRepoMock.Setup(r => r.GetProductById(1)).ReturnsAsync(product);
+
+            await Assert.ThrowsAsync<InvalidOperationException>(() => _service.AddToStock(1, 1));
+        }
+
+        [Fact]
         public async Task SearchProductsByName_ReturnsMappedDtos()
         {
             var products = new List<Product>

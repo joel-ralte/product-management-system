@@ -1,6 +1,7 @@
 ﻿using PMS.Business.Services.Interfaces;
 using PMS.Business.UnitOfWork.Interfaces;
 using PMS.Business.Mappers.Product;
+using PMS.Common.Configurations;
 using PMS.Common.Constants;
 using PMS.DTO.Product;
 using PMS.Repository.Helpers.Interfaces;
@@ -84,6 +85,10 @@ namespace PMS.Business.Services
             var product = await unitOfWork.ProductRepository.GetProductById(id);
             if (product == null)
                 throw new InvalidOperationException(ExceptionConstants.ProductNotFound);
+
+            var totalStock = product.Stock + quantity;
+            if(totalStock > RangeValues.MaxStock)
+                throw new InvalidOperationException(ExceptionConstants.StockExceedsLimit);
 
             await unitOfWork.ProductOperationsRepository.AddToStock(id, quantity);
             await unitOfWork.SaveChanges();
